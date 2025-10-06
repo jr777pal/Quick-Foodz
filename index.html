@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body.index-bg {
+            background-image: url('bgg.jpg'); /* Background image */
+            background-size: fill;
+            opacity: 2.0;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full height */
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center content vertically */
+            font-family: serif; /* Set default font family for the body */
+        }
+
+        /* Centered box */
+        .center-box {
+            width: 600px;
+            max-width: 90%; /* Responsive max width */
+            padding: 20px;
+            background-color: white; /* Background color for the box */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Slight shadow effect */
+            border-radius: 10px; /* Rounded corners */
+            position: relative; /* For positioning the menu icon */
+            font-family: serif; /* Use serif font inside the box */
+        }
+
+        /* Style for the left-side menu */
+        .sidenav {
+            height: 100%; /* Full-height */
+            width: 0; /* Initially hidden */
+            position: fixed; /* Stay in place */
+            z-index: 2; /* Stay on top */
+            top: 0;
+            left: 0;
+            background-color: #111; /* Black */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 0.5s; /* 0.5 second transition effect */
+            padding-top: 20px; /* Add top padding */
+            font-family: monospace; /* Use monospace font for the side menu */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Style for the logo at the top of the side menu */
+        .sidenav img {
+            width: 110px; /* Set logo width */
+            height: 100px; /* Set logo height */
+            margin-bottom: 20px; /* Space below the logo */
+        }
+
+        .sidenav a {
+            padding: 8px 8px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            text-align: center; /* Center the text */
+            border-bottom: 1px solid #444; /* Add a line after each link */
+            width: 100%;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        /* Style for the menu icon (three-line "hamburger" icon) */
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #111;
+        }
+
+        /* Change the main content position when the side menu is open */
+        #main {
+            transition: margin-left 0.5s;
+            padding: 16px;
+        }
+
+        /* Overlay that covers the entire screen */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+            z-index: 1; /* Below the side nav but above main content */
+            display: none; /* Hidden by default */
+        }
+
+        /* Popup Modal */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 20px;
+            background-color: rgb(54, 54, 54); /* Black background for popup */
+            color: white; /* White text on black background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 3;
+            display: none; /* Hidden by default */
+        }
+
+        .popup img {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+
+        .popup h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #FFD700; /* Gold color for heading */
+        }
+
+        .popup p {
+            font-size: 1rem;
+            color: white; /* White text for paragraph */
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for the content inside the box */
+        h1, h2, ul {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        ul li {
+            padding: 10px 0;
+        }
+
+        ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+        }
+
+        ul li a:hover {
+            color: #007BFF;
+        }
+        .order-label {
+    display: inline-block;  /* Ensure inline-block for vertical layout */
+    writing-mode: vertical-rl; /* Text direction from right to left */
+    transform: rotate(180deg); /* Rotate the text for vertical alignment */
+    margin-top: 10px;
+    padding: 10px 10px;
+    font-size: 16px;         /* Reduced font size */
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    text-transform: uppercase;
+
+    position: absolute;     /* Position relative to the parent */
+    bottom: -30px;              /* Align to the bottom */
+    right: 20px;               /* Align to the right */
+}
+
+
+
+
+        .order-label:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body class="index-bg">
+    <!-- Overlay for closing the side menu -->
+    <div id="overlay" class="overlay" onclick="closeNav()"></div>
+
+    <!-- Side navigation -->
+    <div id="mySidenav" class="sidenav">
+        <!-- Logo image at the top -->
+        <img src="logo1.png" alt="Restaurant Logo">
+        
+        <a href="about_us.html">About Us</a>
+        <a href="contact_us.html">Contact Us</a>
+        <a href="order.html">Order</a>
+    </div>
+
+    <!-- Centered box -->
+    <div class="center-box">
+        <!-- Menu icon -->
+        <span class="menu-icon" onclick="toggleNav()">&#9776;</span>
+
+        <!-- Main content -->
+        <div id="main">
+            <header>
+                <h1>MENU</h1>
+            </header>
+            <h2>CONTENTS</h2>
+
+            <ul>
+                <li><a href="starters.html">Starters</a></li>
+                <li><a href="main_course.html">Main Course</a></li>
+                <li><a href="beverages.html">Beverages</a></li>
+            </ul>
+
+            <!-- Red Order Label -->
+            <a href="order.html" class="order-label">Order</a>
+        </div>
+    </div>
+
+    <!-- Discount Popup -->
+    <div id="popup" class="popup">
+        <img src="offer.png" alt="Discount Icon">
+        
+        <h4>Get 20% off if you pick up your order directly from our cloud kitchen <br> Enjoy Your Meal!!!!</h4>
+    </div>
+
+    <!-- JavaScript to toggle the side navigation and popup -->
+    <script>
+        let isNavOpen = false; // Track the navigation state
+
+        function toggleNav() {
+            if (isNavOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        }
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.getElementById("overlay").style.display = "block"; // Show overlay
+            isNavOpen = true;
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("overlay").style.display = "none"; // Hide overlay
+            isNavOpen = false;
+        }
+
+        // Show popup on page load
+        window.onload = function() {
+            document.getElementById("popup").style.display = "block";
+            document.addEventListener('click', closePopup); // Close popup on click anywhere
+        }
+
+        // Close popup
+        function closePopup(event) {
+            const popup = document.getElementById("popup");
+            if (!popup.contains(event.target)) {
+                popup.style.display = "none"; // Hide popup
+                document.removeEventListener('click', closePopup); // Remove listener once popup is closed
+            }
+        }
+    </script>
+</body>
+</html>
